@@ -44,5 +44,9 @@ namespace Bookstore.Infrastructure
                 books.Add(book);
             }
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

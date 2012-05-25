@@ -10,21 +10,23 @@ namespace Bookstore.UI.Controllers
 {
     public sealed class BookController : LoggingController<BookController>
     {
-        IBookRepository repository;
-        BookService service;
+        private readonly Func<IBookRepository> repositoryFactory;
+        private readonly BookService service;
 
-        public BookController(IBookRepository repository, BookService service, ILoggerFactory loggerFactory)
+        public BookController(Func<IBookRepository> repositoryFactory, BookService service, ILoggerFactory loggerFactory)
             : base(loggerFactory)
         {
-            this.repository = repository;
+            this.repositoryFactory = repositoryFactory;
             this.service = service;
         }
 
         public ActionResult Index()
         {
-            var books = repository.LoadAll(null);
-
-            return View(books);
+            using (var repository = repositoryFactory())
+            {
+                var books = repository.LoadAll(null);
+                return View(books);
+            }
         }
 
         public ActionResult Details(string id)
@@ -58,7 +60,8 @@ namespace Bookstore.UI.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View(repository.Load(id));
+            using (var repository = repositoryFactory())
+                return View(repository.Load(id));
         }
 
         [HttpPost]
