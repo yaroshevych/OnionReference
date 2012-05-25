@@ -9,10 +9,12 @@ namespace Bookstore.Core
     {
         private readonly IBookRepository repository;
         private static ILogger logger;
+        private readonly string userName;
 
-        public BookService(IBookRepository repository, ILoggerFactory loggerFactory)
+        public BookService(string context, IBookRepository repository, ILoggerFactory loggerFactory)
         {
             this.repository = repository;
+            this.userName = context;
 
             if (logger == null)
                 logger = loggerFactory.Create<BookService>();

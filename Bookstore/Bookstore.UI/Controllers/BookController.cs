@@ -11,13 +11,13 @@ namespace Bookstore.UI.Controllers
     public sealed class BookController : LoggingController<BookController>
     {
         private readonly Func<IBookRepository> repositoryFactory;
-        private readonly BookService service;
+        private readonly Func<string, BookService> serviceFactory; // DI framework will use proper constructor
 
-        public BookController(Func<IBookRepository> repositoryFactory, BookService service, ILoggerFactory loggerFactory)
+        public BookController(Func<IBookRepository> repositoryFactory, Func<string, BookService> serviceFactory, ILoggerFactory loggerFactory)
             : base(loggerFactory)
         {
             this.repositoryFactory = repositoryFactory;
-            this.service = service;
+            this.serviceFactory = serviceFactory;
         }
 
         public ActionResult Index()
@@ -54,6 +54,7 @@ namespace Bookstore.UI.Controllers
 
         public ActionResult Publish(string id)
         {
+            var service = serviceFactory(System.Threading.Thread.CurrentPrincipal.Identity.Name);
             service.PublishBook(id);
             return RedirectToAction("Index");
         }
