@@ -44,6 +44,11 @@ namespace Bookstore.UI.Controllers
         {
             try
             {
+                book.Id = Guid.NewGuid().ToString();
+
+                using (var repository = repositoryFactory())
+                    repository.Save(book);
+
                 return RedirectToAction("Index");
             }
             catch
@@ -70,7 +75,8 @@ namespace Bookstore.UI.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                using (var repository = repositoryFactory())
+                    repository.Save(book);
 
                 return RedirectToAction("Index");
             }
