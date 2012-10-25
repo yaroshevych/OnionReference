@@ -43,6 +43,7 @@
     <Compile Include="Author.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="BookService.cs" />
+    <Compile Include="DiscountService.cs" />
     <Compile Include="IAuthorRepository.cs" />
     <Compile Include="IBookRepository.cs" />
     <Compile Include="ILogger.cs" />

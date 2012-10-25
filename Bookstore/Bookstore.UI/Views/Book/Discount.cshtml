@@ -1,0 +1,31 @@
+﻿@model Bookstore.UI.Models.BookDiscount
+
+@{
+    ViewBag.Title = "Discount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Discount</h2>
+
+<fieldset>
+    <legend>BookDiscount</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    
+    <div class="display-label">Price</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Price)
+    </div>
+
+    <div class="display-label">Discounted Price</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DiscountedPrice)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Book Details", "Details", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

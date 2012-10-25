@@ -8,7 +8,14 @@ namespace Bookstore.Infrastructure
 {
     public class BookRepository : IBookRepository
     {
-        private static List<Book> books = new List<Book>(new[] { new Book { Id = "1", Name = "Test", ReleaseDate = DateTime.UtcNow.AddDays(-10) }, new Book { Id = "2", Name = "Test2", ReleaseDate = DateTime.UtcNow.AddDays(-10) } });
+        private static List<Book> books = new List<Book>(new[]
+            {
+                new Book {Id = "1", Name = "Homemade Halloween Treats", ReleaseDate = DateTime.UtcNow.AddDays(-10), Price = 39},
+                new Book {Id = "2", Name = "Shadow: 9", ReleaseDate = DateTime.UtcNow.AddDays(-10), Price = 19.95m},
+                new Book {Id = "3", Name = "The Third Wheel", ReleaseDate = DateTime.UtcNow.AddDays(-223), Price = 8},
+                new Book {Id = "4", Name = "RUNAWAY HEART", ReleaseDate = DateTime.UtcNow.AddDays(-189), Price = 59.95m},
+                new Book {Id = "5", Name = "The Racketeer", ReleaseDate = DateTime.UtcNow.AddYears(-3), Price = 34.99m}
+            });
 
         public Book Load(string id)
         {

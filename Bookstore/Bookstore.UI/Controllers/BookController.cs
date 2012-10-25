@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Bookstore.Core;
 using Bookstore.UI.Common;
+using Bookstore.UI.Models;
 
 namespace Bookstore.UI.Controllers
 {
@@ -31,7 +32,23 @@ namespace Bookstore.UI.Controllers
 
         public ActionResult Details(string id)
         {
-            return View();
+            using (var repository = repositoryFactory())
+            {
+                var book = repository.Load(id);
+                return View(book);
+            }
+        }
+
+        public ActionResult Discount(string id)
+        {
+            using (var repository = repositoryFactory())
+            {
+                var book = repository.Load(id);
+                var service = new DiscountService();
+                var price = service.GetDiscount(book);
+
+                return View(new BookDiscount {Id = book.Id, Name = book.Name, Price = book.Price, DiscountedPrice = price});
+            }
         }
 
         public ActionResult Create()
